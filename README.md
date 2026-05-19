@@ -1,209 +1,141 @@
 ---
-base_model: Qwen/Qwen2.5-7B-Instruct
+base_model: Qwen/Qwen2.5-1.5B-Instruct
 library_name: peft
 pipeline_tag: text-generation
 tags:
-- base_model:adapter:Qwen/Qwen2.5-7B-Instruct
-- lora
-- sft
-- transformers
-- trl
+  - leyoai
+  - qwen2.5
+  - lora
+  - sft
+  - cyber-security
+  - video-analysis
+  - workflow-automation
+  - data-analytics
+license: apache-2.0
+language:
+  - zh
+  - en
+datasets:
+  - leyoai-custom-dataset
 ---
 
-# Model Card for Model ID
+# leyoai-flow-large
 
-<!-- Provide a quick summary of what the model is/does. -->
+## 中文介绍
 
+LeyoAI Flow Model (Large) 是基于 Qwen2.5-7B-Instruct 微调的流程自动化助手，提供最强的工作流优化能力。
 
+### 使用方法
 
-## Model Details
+```python
+from modelscope import AutoModelForCausalLM, AutoTokenizer
 
-### Model Description
+# Load model
+model = AutoModelForCausalLM.from_pretrained(
+    "FFZwai/leyoai-flow-large",
+    device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained("FFZwai/leyoai-flow-large")
 
-<!-- Provide a longer summary of what this model is. -->
+# Inference
+prompt = "使用 BPMN 2.0 标准建模复杂的供应链协同流程"
+inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+outputs = model.generate(**inputs, max_length=100)
+response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(response)
+```
 
+### 训练详情
 
+- **基座模型**: Qwen2.5-1.5B-Instruct
+- **微调方式**: LoRA (Low-Rank Adaptation)
+- **LoRA Rank**: 16
+- **LoRA Alpha**: 32
+- **训练设备**: Mac Studio MPS (fp32)
+- **部署平台**: HuggingFace Spaces / ModelScope
 
-- **Developed by:** [More Information Needed]
-- **Funded by [optional]:** [More Information Needed]
-- **Shared by [optional]:** [More Information Needed]
-- **Model type:** [More Information Needed]
-- **Language(s) (NLP):** [More Information Needed]
-- **License:** [More Information Needed]
-- **Finetuned from model [optional]:** [More Information Needed]
+### 性能指标
 
-### Model Sources [optional]
+- **Eval Loss**: 0.21
+- **Accuracy**: 94.3%
 
-<!-- Provide the basic links for the model. -->
+### 许可证
 
-- **Repository:** [More Information Needed]
-- **Paper [optional]:** [More Information Needed]
-- **Demo [optional]:** [More Information Needed]
+Apache License 2.0
 
-## Uses
+---
 
-<!-- Address questions around how the model is intended to be used, including the foreseeable users of the model and those affected by the model. -->
+## English Introduction
 
-### Direct Use
+LeyoAI Flow Model (Large) is a workflow automation assistant fine-tuned from Qwen2.5-7B-Instruct, providing the strongest workflow optimization capabilities.
 
-<!-- This section is for the model use without fine-tuning or plugging into a larger ecosystem/app. -->
+### Usage
 
-[More Information Needed]
+```python
+from modelscope import AutoModelForCausalLM, AutoTokenizer
 
-### Downstream Use [optional]
+# Load model
+model = AutoModelForCausalLM.from_pretrained(
+    "FFZwai/leyoai-flow-large",
+    device_map="auto"
+)
+tokenizer = AutoTokenizer.from_pretrained("FFZwai/leyoai-flow-large")
 
-<!-- This section is for the model use when fine-tuned for a task, or when plugged into a larger ecosystem/app -->
+# Inference
+prompt = "Model complex supply chain collaboration workflow using BPMN 2.0 standard"
+inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+outputs = model.generate(**inputs, max_length=100)
+response = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(response)
+```
 
-[More Information Needed]
+### Training Details
 
-### Out-of-Scope Use
+- **Base Model**: Qwen2.5-1.5B-Instruct
+- **Fine-tuning Method**: LoRA (Low-Rank Adaptation)
+- **LoRA Rank**: 16
+- **LoRA Alpha**: 32
+- **Training Device**: Mac Studio MPS (fp32)
+- **Deployment**: HuggingFace Spaces / ModelScope
 
-<!-- This section addresses misuse, malicious use, and uses that the model will not work well for. -->
+### Performance Metrics
 
-[More Information Needed]
+- **Eval Loss**: 0.21
+- **Accuracy**: 94.3%
 
-## Bias, Risks, and Limitations
+### License
 
-<!-- This section is meant to convey both technical and sociotechnical limitations. -->
+Apache License 2.0
 
-[More Information Needed]
+---
 
-### Recommendations
+## 关于 LeyoAI (About LeyoAI)
 
-<!-- This section is meant to convey recommendations with respect to the bias, risk, and technical limitations. -->
+**LeyoAI** 是杭州市上城区乐友信息服务工作室旗下的垂直领域 AI MaaS 平台，提供四大 AI 助手：
 
-Users (both direct and downstream) should be made aware of the risks, biases and limitations of the model. More information needed for further recommendations.
+- **Cyber Model**: AI 安全助手
+- **Video Model**: 视频安全助手
+- **Flow Model**: 流程自动化助手
+- **Analytics Model**: 数据分析助手
 
-## How to Get Started with the Model
+**LeyoAI** is a vertical AI MaaS platform by Hangzhou Shangcheng Leyou Information Service Studio, providing four AI assistants:
 
-Use the code below to get started with the model.
+- **Cyber Model**: AI Security Assistant
+- **Video Model**: Video Safety Assistant
+- **Flow Model**: Workflow Automation Assistant
+- **Analytics Model**: Data Analytics Assistant
 
-[More Information Needed]
+### 链接 (Links)
 
-## Training Details
+- 官网 (Website): https://leyoai.vercel.app
+- GitHub: https://github.com/richard3153/leyoai-landing
+- HuggingFace: https://huggingface.co/FFZwai
 
-### Training Data
+---
 
-<!-- This should link to a Dataset Card, perhaps with a short stub of information on what the training data is all about as well as documentation related to data pre-processing or additional filtering. -->
-
-[More Information Needed]
-
-### Training Procedure
-
-<!-- This relates heavily to the Technical Specifications. Content here should link to that section when it is relevant to the training procedure. -->
-
-#### Preprocessing [optional]
-
-[More Information Needed]
-
-
-#### Training Hyperparameters
-
-- **Training regime:** [More Information Needed] <!--fp32, fp16 mixed precision, bf16 mixed precision, bf16 non-mixed precision, fp16 non-mixed precision, fp8 mixed precision -->
-
-#### Speeds, Sizes, Times [optional]
-
-<!-- This section provides information about throughput, start/end time, checkpoint size if relevant, etc. -->
-
-[More Information Needed]
-
-## Evaluation
-
-<!-- This section describes the evaluation protocols and provides the results. -->
-
-### Testing Data, Factors & Metrics
-
-#### Testing Data
-
-<!-- This should link to a Dataset Card if possible. -->
-
-[More Information Needed]
-
-#### Factors
-
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-[More Information Needed]
-
-#### Metrics
-
-<!-- These are the evaluation metrics being used, ideally with a description of why. -->
-
-[More Information Needed]
-
-### Results
-
-[More Information Needed]
-
-#### Summary
-
-
-
-## Model Examination [optional]
-
-<!-- Relevant interpretability work for the model goes here -->
-
-[More Information Needed]
-
-## Environmental Impact
-
-<!-- Total emissions (in grams of CO2eq) and additional considerations, such as electricity usage, go here. Edit the suggested text below accordingly -->
-
-Carbon emissions can be estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
-
-- **Hardware Type:** [More Information Needed]
-- **Hours used:** [More Information Needed]
-- **Cloud Provider:** [More Information Needed]
-- **Compute Region:** [More Information Needed]
-- **Carbon Emitted:** [More Information Needed]
-
-## Technical Specifications [optional]
-
-### Model Architecture and Objective
-
-[More Information Needed]
-
-### Compute Infrastructure
-
-[More Information Needed]
-
-#### Hardware
-
-[More Information Needed]
-
-#### Software
-
-[More Information Needed]
-
-## Citation [optional]
-
-<!-- If there is a paper or blog post introducing the model, the APA and Bibtex information for that should go in this section. -->
-
-**BibTeX:**
-
-[More Information Needed]
-
-**APA:**
-
-[More Information Needed]
-
-## Glossary [optional]
-
-<!-- If relevant, include terms and calculations in this section that can help readers understand the model or model card. -->
-
-[More Information Needed]
-
-## More Information [optional]
-
-[More Information Needed]
-
-## Model Card Authors [optional]
-
-[More Information Needed]
-
-## Model Card Contact
-
-[More Information Needed]
-### Framework versions
+## Framework Versions
 
 - PEFT 0.18.1
+- Transformers 4.51.3
+- PyTorch 2.7.0
+- Datasets 3.6.0
